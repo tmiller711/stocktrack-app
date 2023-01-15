@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as login_func
 
 from .forms import LoginForm
@@ -14,6 +14,7 @@ def login(request):
             if account is not None:
                 login_func(request, account)
                 print("success")
+                return redirect('/')
     else:
         form = LoginForm()
     return render(request, 'login.html', context={'form': form})

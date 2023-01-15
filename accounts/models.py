@@ -32,6 +32,7 @@ class MyAccountManager(BaseUserManager):
 # Create your models here.
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
+    credits = models.PositiveIntegerField(default=5)
 
     date_joined = models.DateTimeField(
         verbose_name="date joined", auto_now_add=True)
