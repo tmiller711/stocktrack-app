@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+<!-- <h1>Dashboard</h1> -->
+<h2>User: {{ request.user }}</h2>
+<h2>Credits: {{ request.user.credits }}</h2>
+{% endblock %}

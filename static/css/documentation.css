@@ -1,0 +1,25 @@
+/* body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+} */
+
+h1, h2, h3 {
+    margin-top: 1em;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 1em;
+}
+
+li h2 {
+    margin-top: 0;
+}
+
+.example {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin-bottom: 1em;
+}

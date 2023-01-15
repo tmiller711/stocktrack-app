@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Documentation
+{% endblock %}
+
+{% block additionalStyles %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/documentation.css' %}?version=1">
+{% endblock %}
+
+{% block content %}
+<h1>StockTrack CLI Documentation</h1>
+    <p>StockTrack is a command line interface (CLI) tool that allows users to manage their assets, perform tests on strategies, 
+        and edit text files. It provides the following commands:</p>
+    <ul>
+      <li>
+        <h2>create</h2>
+        <p>This command creates a new test. It takes in a single required argument testname, which specifies the name of the test to be created.</p>
+        <pre>
+stocktrack create < testname >
+        </pre>
+      </li>
+      <li>
+        <h2>edit</h2>
+        <p>This command allows the user to edit a previously created test.</p>
+        <pre>
+stocktrack edit
+        </pre>
+        <p>This will present the user with a list of all the tests they have created and prompt them to select the test they want to edit. 
+            The selected test will then be opened in a text editor for the user to edit.</p>
+      </li>
+      <li>
+        <h2>run</h2>
+        <p>This command allows the user to run a test. It takes in the following arguments:</p>
+        <ul>
+          <li>'testname': The name of the test to be run.</li>
+          <li>'startdate': The start date for the test in the format YYYY-MM-DD.</li>
+          <li>'enddate': The end date for the test in the format YYYY-MM-DD.</li>
+        </ul>
+        <p>It also has the following optional arguments:</p>
+        <ul>
+          <li>'-o', '--output': The name of the file where the results of the test should be saved. 
+            If this argument is not specified, the results are printed to the terminal.</li>
+          <li>'-g', '--graph': Whether or not to generate a graph of the test results.</li>
+        </ul>
+        <pre>
+stocktrack run < testname > < startdate > < enddate > [OPTIONS]
+        </pre>
+      </li>
+      <li>
+        <h2>setdir</h2>
+        <p>This command allows the user to set the directories where the tests and results are stored. It takes in the following arguments:</p>
+        <ul>
+          <li>'testdir': The directory where the tests should be stored.</li>
+          <li>'resultsdir': The directory where the results should be stored.</li>
+        </ul>
+        <pre>
+stocktrack setdir < testdir > < resultsdir >
+        </pre>
+      </li>
+      <li>
+        <h2>results</h2>
+        <p>
+            This command allows the user to view the results of a previously run test. It presents the user with a list of all the result files in the directory 
+            specified by the results_dir.txt file and prompts the user to select the file they want to view. It then displays the contents of the selected file.</p>
+<pre>
+stocktrack results
+</pre>
+</li>
+</ul>
+<h2>Account commands</h2>
+<ul>
+<li>'account': Returns the email of the active account if the user is signed in.</li>
+<li>'login': Logs the user in to the API with the credentials provided.</li>
+<li>'register': Registers an account with the API using the credentials provided.</li>
+</ul>
+<h2>Test Language</h2>
+<p>Tests are created by writing a script using the test language outlined below. The test language consists of a list of indicators to be used in the test and buy and sell criteria specified using the buy and sell keywords. The criteria can be defined using the crossing and divergence commands, which allow the user to specify conditions based on the values of indicators. The tp sl command can be used to specify take profit and stop loss levels for trades.</p>
+<h3>Examples</h3>
+<pre>
+Example 1:
+
+use rsi
+
+buy {
+crossing rsi < 30
+}
+
+sell {
+crossing rsi > 70
+}
+This test will buy a stock when the rsi is less than 30 and sell when the rsi is greater than 70.
+
+Example 2:
+
+use macd signal
+
+buy {
+crossing macd > signal
+}
+
+sell {
+tp 7% sl -2%
+}
+This test will buy stock when the macd line crosses the signal line and sell when either the take profit (7%) or the stop loss (-2%) are hit.
+
+Example 3:
+
+use rsi
+
+buy {
+divergence bull rsi 15
+}
+
+sell {
+crossing rsi > 70
+}
+This test will buy when there is divergence on the rsi looking back 15 days and sell when/if the rsi goes above 70.
+</pre>
+<h2>Available Indicators</h2>
+<p>The following indicators are available to be used in tests:</p>
+<ul>
+<li>rsi</li>
+<li>macd</li>
+<li>signal</li>
+</ul>
+<h2>Additional Information</h2>
+<p>The 'use' keyword is used to specify the indicators to be used in the test. The indicators should be separated by a space.</p>
+<p>The 'buy' and 'sell' keywords are used to define the criteria for when to buy or sell a stock. The criteria should be defined within curly braces '{}'.</p>
+<p>The 'crossing' command is used to specify when an indicator crosses a certain value. It takes in two arguments: the indicator and the value.</p>
+<p>The 'divergence' command is used to specify when there is a divergence on the indicator, it takes in three arguments: bull or bear, indicator, and lookback period.</p>
+{% endblock %}
