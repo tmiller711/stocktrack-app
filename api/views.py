@@ -8,7 +8,7 @@ import pandas as pd
 from django.contrib.auth import login, authenticate
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Stock
+from main.models import Stock
 from accounts.models import Account
 from .serializers import StockSerializer, AccountSerializer
 
