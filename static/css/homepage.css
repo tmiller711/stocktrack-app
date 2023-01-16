@@ -1,0 +1,25 @@
+p.about-section {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    font-size: 30px;
+    text-align: center;
+    background-color: #54627B;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+p.install {
+    width: 700px;
+    font-size: 40px;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+    background-color: #ECD5BB;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+a.pypi {
+    color: #54627B;
+}
