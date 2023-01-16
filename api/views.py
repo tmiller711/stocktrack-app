@@ -88,7 +88,6 @@ class GetAccount(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
-        account = Account(email=request.user.email)
-        if account is not None:
-            return Response({'email': account.email}, status=status.HTTP_200_OK)
+        if request.user.is_authenticated:
+            return Response({'email': request.user.email, 'credits': request.user.credits}, status=status.HTTP_200_OK)
         return Response({"error": "couldn't find account"}, status=status.HTTP_404_NOT_FOUND)
