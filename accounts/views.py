@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as login_func
 
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 
 def login(request):
     if request.method == "POST":
@@ -20,4 +20,15 @@ def login(request):
     return render(request, 'login.html', context={'form': form})
 
 def register(request):
-    pass
+    user = request.user
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            return redirect("/login")
+    else:
+        form = RegisterForm()
+
+    return render(request, "register.html", context={"form": form})
