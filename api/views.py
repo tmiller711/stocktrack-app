@@ -18,6 +18,9 @@ class GetStockData(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        if request.user.credits == 0:
+            return Response({"error": "insufficient credits"}, status=status.HTTP_400_BAD_REQUEST)
+
         indicator_args = request.data.get('indicators')
         start_date = datetime.strptime(request.data.get('start_date'), "%Y-%m-%d").date()
         end_date = datetime.strptime(request.data.get('end_date'), "%Y-%m-%d").date()
@@ -39,6 +42,9 @@ class GetStockData(APIView):
         for indicator in indicator_args:
             indicators.append(indicator)
         data = data[indicators]
+
+        request.user.credits -= 1
+        request.user.save()
 
         return Response(data, status=status.HTTP_200_OK)
 
