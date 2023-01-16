@@ -6,12 +6,15 @@ div.register {
     margin-top: 100px;
     text-align: center;
     padding: 10px;
+    background-color: #54627B;
+    border-radius: 10px;
 }
 
 .register-form {
     position: relative;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    color: #FFFFFF;
 }
 
 .submit-button {
