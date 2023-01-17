@@ -17,6 +17,10 @@ div.register {
     color: #FFFFFF;
 }
 
+.register-form a {
+    color: #710117;
+}
+
 .submit-button {
     margin-top: 5px;
 }

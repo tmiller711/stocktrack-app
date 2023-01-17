@@ -16,3 +16,7 @@ div.login {
     transform: translateY(-50%);
     color: #FFFFFF;
 }
+
+.login-form a {
+    color: #710117;
+}
