@@ -1,11 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Dashboard
 {% endblock %}
 
+{% block additionalStyles %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/dashboard.css' %}?version=1">
+{% endblock %}
+
 {% block content %}
 <!-- <h1>Dashboard</h1> -->
-<h2>User: {{ request.user }}</h2>
-<h2>Credits: {{ request.user.credits }}</h2>
+<div class="dashboard">
+    <div class="dashboard-text">
+        {% if request.user.is_authenticated %}
+            <h2>User: {{ request.user }}</h2>
+            <h2>Credits: {{ request.user.credits }}</h2>
+        {% else %}
+            <h1>Please login <a href="/login">Here</a></h1>
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
