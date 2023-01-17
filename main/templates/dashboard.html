@@ -16,6 +16,7 @@ Dashboard
         {% if request.user.is_authenticated %}
             <h2>User: {{ request.user }}</h2>
             <h2>Credits: {{ request.user.credits }}</h2>
+            <h2><a href="/logout" class="logout">Logout</a></h2>
         {% else %}
             <h1>Please login <a href="/login">Here</a></h1>
         {% endif %}
