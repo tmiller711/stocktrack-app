@@ -13,7 +13,6 @@ def login(request):
             account = authenticate(request, email=email, password=password)
             if account is not None:
                 login_func(request, account)
-                print("success")
                 return redirect('/')
     else:
         form = LoginForm()
