@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 # Create your views here.
 def homepage(request):
@@ -17,3 +17,6 @@ def add_credits(request):
         request.user.credits += 5
         request.user.save()
         return JsonResponse({"credits": request.user.credits})
+
+    else:
+        return HttpResponse(status=401)
