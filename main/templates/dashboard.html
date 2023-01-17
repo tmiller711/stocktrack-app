@@ -15,12 +15,15 @@ Dashboard
     <div class="dashboard-text">
         {% if request.user.is_authenticated %}
             <h2>User: {{ request.user }}</h2>
-            <h2>Credits: {{ request.user.credits }}</h2>
+            <h2 class="num-of-credits">Credits: {{ request.user.credits }}</h2>
+            <button class="btn btn-primary" id="add-credits-button">Add credits</button>
             <h2><a href="/logout" class="logout">Logout</a></h2>
         {% else %}
             <h1>Please login <a href="/login">Here</a></h1>
         {% endif %}
     </div>
 </div>
+
+<script src="{% static 'javascript/dashboard.js' %}"></script>
 
 {% endblock %}
