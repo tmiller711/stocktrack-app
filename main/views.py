@@ -3,7 +3,6 @@ from django.http import JsonResponse
 
 # Create your views here.
 def homepage(request):
-    print(request.user)
     
     return render(request, "homepage.html", context={})
 
