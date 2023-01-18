@@ -11,6 +11,7 @@ COPY . .
 
 # setup environment variables
 ENV DJANGO_SETTINGS_MODULE='stocktrackapp.settings.prod'
+ARG DJANGO_SECRET_KEY
 
 RUN python3 manage.py makemigrations
 RUN python3 manage.py migrate
@@ -29,8 +30,8 @@ COPY conf/nginx /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
 # setup ssl
-COPY conf/certbot /app/certbot
+# COPY conf/certbot /app/certbot
 
 EXPOSE 80 443
 
-CMD nginx && gunicorn bitwatch.wsgi -w 4 -b 0.0.0.0:8000
+CMD nginx && gunicorn stocktrackapp.wsgi -w 4 -b 0.0.0.0:8000
