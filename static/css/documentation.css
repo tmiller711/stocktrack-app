@@ -5,21 +5,57 @@
     padding: 0;
 } */
 
-h1, h2, h3 {
-    margin-top: 1em;
+div.documentation-section {
+    position: relative;
+    width: 75%;
+    height: auto;
+    background-color: #54627B;
+    margin: auto;
+    border-radius: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
 }
 
-pre {
-    background-color: #f4f4f4;
-    padding: 1em;
+div.intro {
 }
 
-li h2 {
-    margin-top: 0;
+.command {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    background-color: #ECD5BB;
+    color: black;
+    padding: 3px;   
+    border-radius: 4px;
 }
 
-.example {
-    border: 1px solid #ccc;
-    padding: 1em;
-    margin-bottom: 1em;
+.code-block {
+    position: relative;
+    display: inline-block;
+    white-space: pre;
+    height: auto;
+    width: auto;
+    background-color: #ECD5BB;
+    color: black;
+    border-radius: 4px;
+    padding-right: 35px;
+}
+
+div.documentation-section ul {
+    display: inline;
+}
+
+div.documentation-section ul li{
+    list-style-type: circle;
+}
+
+div.documentation-section ul.test-examples {
+    display: flex;
+}
+
+div.documentation-section ul.test-examples li {
+    list-style-type: none;
 }
