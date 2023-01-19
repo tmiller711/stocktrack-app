@@ -1,0 +1,22 @@
+div.login {
+    width: 400px;
+    height: 350px;
+    border: 1px solid #54627B;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+    padding: 10px;
+    background-color: #54627B;
+    border-radius: 10px;
+}
+
+.login-form {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #FFFFFF;
+}
+
+.login-form a {
+    color: #710117;
+}

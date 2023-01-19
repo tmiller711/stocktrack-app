@@ -5,9 +5,12 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, date
 import pandas as pd
+from django.contrib.auth import login, authenticate
+from rest_framework.permissions import IsAuthenticated
 
-from .models import Stock
-from .serializers import StockSerializer
+from main.models import Stock
+from accounts.models import Account
+from .serializers import StockSerializer, AccountSerializer
 
 # Create your views here.
 
@@ -15,6 +18,9 @@ class GetStockData(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        if request.user.credits == 0:
+            return Response({"error": "insufficient credits"}, status=status.HTTP_400_BAD_REQUEST)
+
         indicator_args = request.data.get('indicators')
         start_date = datetime.strptime(request.data.get('start_date'), "%Y-%m-%d").date()
         end_date = datetime.strptime(request.data.get('end_date'), "%Y-%m-%d").date()
@@ -37,6 +43,9 @@ class GetStockData(APIView):
             indicators.append(indicator)
         data = data[indicators]
 
+        request.user.credits -= 1
+        request.user.save()
+
         return Response(data, status=status.HTTP_200_OK)
 
 class AllStocks(APIView):
@@ -45,3 +54,40 @@ class AllStocks(APIView):
         stocks = ', '.join(stocks)
 
         return Response(stocks, status=status.HTTP_200_OK)
+
+class RegisterAccount(APIView):
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = AccountSerializer(data=request.data)
+        if serializer.is_valid():
+            email = serializer.data.get('email')
+            password = serializer.data.get('password')
+
+            account = Account(email=email)
+            account.set_password(password)
+            account.save()
+            return Response({'Account created': 'Good stuff'}, status=status.HTTP_201_CREATED)
+
+        return Response({'error': 'creating account'}, status=status.HTTP_400_BAD_REQUEST)
+
+class LoginAccount(APIView):
+    def post(self, request, format=None):
+            email = request.data.get('email')
+            password = request.data.get('password')
+            if len(email) > 0 and len(password) > 0:
+                account = authenticate(request, email=email, password=password)
+                if account is not None:
+                    login(request, account)
+                    return Response({'Logged': 'In'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'error': 'signing in'}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({'error': 'signing in'}, status=status.HTTP_400_BAD_REQUEST)
+
+class GetAccount(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        if request.user.is_authenticated:
+            return Response({'email': request.user.email, 'credits': request.user.credits}, status=status.HTTP_200_OK)
+        return Response({"error": "couldn't find account"}, status=status.HTTP_404_NOT_FOUND)

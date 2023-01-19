@@ -3,3 +3,6 @@ djangorestframework
 pandas
 django
 djangorestframework-simplejwt
+django-crispy-forms
+psycopg2-binary
+django-cors-headers

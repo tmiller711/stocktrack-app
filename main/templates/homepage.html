@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block additionalStyles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}?version=2">
+{% endblock %}
+
+{% block content %}
+<div class="about">
+    <p class="about-section">
+        StockTrack is a powerful command line interface (CLI) tool that allows users to manage their assets and perform tests on different investment strategies.
+        With StockTrack, users can create, edit, and run tests on their stock portfolio, and view the results of these tests. The tool provides a variety of commands to 
+        make this process easy and efficient.
+
+        The tool allows you to create tests using a test language that consists of a list of indicators and buy and sell criteria specified using keywords such as "buy", 
+        "sell", "crossing", "divergence", and "tp sl". The available indicators include RSI and MACD.
+
+        Users can also set the directories where tests and results are stored, and view the results of previously run tests. Additionally, the tool provides account 
+        commands for logging in and registering an account, so you can track your portfolio across multiple devices.
+
+        Whether you're a seasoned investor or just starting out, StockTrack makes it easy to test your investment strategies and make informed decisions about your 
+        stock portfolio. With its user-friendly interface and powerful commands, StockTrack is the perfect tool for managing your assets and staying on top of the 
+        stock market.
+    </p>
+    <p class="install">Installation: 'pip install stocktrack' <br><a class="pypi" href="https://pypi.org/project/stocktrack/">PyPi</a></p>
+</div>
+{% endblock %}
